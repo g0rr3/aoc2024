@@ -19,7 +19,10 @@ SOURCES = $(filter-out $(DEFINITIONS), $(ALL_SRCS))
 EXECUTABLES = $(patsubst $(SRC_DIR)/%.c, $(EXEC_DIR)/%, $(SOURCES))
 
 # Default target (build all executables)
-all: $(EXECUTABLES)
+all: $(EXEC_DIR) $(EXECUTABLES) 
+
+$(EXEC_DIR):
+	@mkdir -p $(EXEC_DIR)
 
 # Rule to build each executable (compile and link)
 $(EXEC_DIR)/%: $(SRC_DIR)/%.c $(DEFINITIONS) $(HEADERS)
