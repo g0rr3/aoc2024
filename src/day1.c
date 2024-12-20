@@ -1,16 +1,17 @@
+#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "utils.h"
 
 int comp(const void *a, const void *b) { return (*(int *)a - *(int *)b); }
 
 int main(int argc, char *argv[]) {
 
-  Input* input = open_input(argv[1]); 
-  if(input == NULL){
-    return 0;
+  Input *input = open_input(argv[1]);
+  if (input == NULL) {
+    perror("Failed to open input");
+    ;
   }
-  
+
   int list1[input->lines];
   int list2[input->lines];
   char ch;
@@ -23,7 +24,7 @@ int main(int argc, char *argv[]) {
   int sum = 0;
   for (int i = 0; i < input->lines; i++) {
     sum += abs(list1[i] - list2[i]);
-    printf("%d %d %d\n",i , list1[i], list2[i]);
+    printf("%d %d %d\n", i, list1[i], list2[i]);
   }
   printf("Part 1: %d\n", sum);
 

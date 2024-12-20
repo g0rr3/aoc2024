@@ -1,8 +1,8 @@
+#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include "utils.h"
 
 int is_safe(int *levels, int length) {
   int inc = 1, dec = 1;
@@ -48,11 +48,10 @@ int main(int argc, char *argv[]) {
   ssize_t read;
   int count1 = 0, count2 = 0;
 
-  Input* input = open_input(argv[1]);
-  if (input == NULL){
+  Input *input = open_input(argv[1]);
+  if (input == NULL) {
     perror("Failed to open input");
   }
-
 
   while ((read = getline(&line, &len, input->file)) != -1) {
     int *levels = malloc(sizeof(int) * 100);
@@ -77,6 +76,7 @@ int main(int argc, char *argv[]) {
   printf("Part2: %d\n", count2);
 
   fclose(input->file);
+  free(input);
   if (line) {
     free(line);
   }

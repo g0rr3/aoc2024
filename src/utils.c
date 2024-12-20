@@ -4,23 +4,20 @@
 
 Input *open_input(char *path) {
   Input *input = malloc(sizeof(Input));
-  input->file = malloc(sizeof(FILE*));
+  input->file = malloc(sizeof(FILE *));
   input->file = fopen(path, "r");
   if (input->file == NULL) {
     free(input);
     return NULL;
   }
-  char c;
-  input->lines=0;
-  input->total_chars=0;
-  while (fscanf(input->file, "%c", &c) != -1) {
-    input->total_chars++;
-    if (c == '\n') {
-      input->lines++;
-    }
+  fseek(input->file, 0, SEEK_END);
+  input->total_chars = ftell(input->file);
+  fseek(input->file, 0, SEEK_SET);
+  input->content = malloc(input->total_chars);
+  if (input->content) {
+    fread(input->content, 1, input->total_chars, input->file);
   }
-  printf("%d\n", ftell(input->file));
+
   rewind(input->file);
-  printf("%d\n", ftell(input->file));
   return input;
 }
